@@ -51,15 +51,11 @@ export default function Header({ language, setLanguage }: HeaderProps) {
                   onClick={() => navigate(item.path)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  style={{ fontFamily: '"Arial Black", Gadget, sans-serif' }}
+                  style={{ fontFamily: '"Open Sans", sans-serif' }}
                   className={`
-                    flex-x flex-1 px-1 py-3 text-[10px] lg:text-[11px] font-black uppercase tracking-tighter
+                    flex-x flex-1 px-1 py-0 text-[16px] font-normal uppercase tracking-tighter
                     transition-all duration-200 text-center flex items-center justify-center
-                    cursor-pointer shadow-sm min-h-[54px] leading-[1.1]
-                    ${location.pathname === item.path 
-                      ? 'bg-[#5d1a33] text-white' 
-                      : 'bg-gray-100 text-[#5d1a33] hover:bg-gray-200'
-                    }
+                    cursor-pointer shadow-sm min-h-[54px] leading-[1.1] bg-white text-black
                   `}
                 >
                   {t.menu[item.labelKey as keyof typeof t.menu]}
