@@ -23,7 +23,7 @@ export default function Header({ language, setLanguage }: HeaderProps) {
   const t = translations[language];
 
   return (
-    <header className="w-full max-w-[1240px] mx-auto px-4 py-4 md:pt-4 md:pb-8 font-serif">
+    <header className="w-full max-w-[1240px] mx-auto px-4 py-4 md:pt-4 md:pb-8 font-serif" style={{ letterSpacing: '0.09em' }}>
       <div className="flex flex-col lg:flex-row items-center lg:items-end gap-6 lg:gap-10">
         {/* Logo Section - Frameless and Clean */}
         <motion.div 
@@ -70,7 +70,7 @@ export default function Header({ language, setLanguage }: HeaderProps) {
 
           {/* Title Area - One Line */}
           <div className="w-full max-w-[900px] text-center border-t border-b border-black py-2 mb-2">
-            <h1 className="text-[24px] lg:text-[38px] font-serif font-bold tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis">
+            <h1 className="text-[24px] lg:text-[48px] font-serif font-bold tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis" style={{ letterSpacing: '0.06em' }}>
               New Federation House
             </h1>
           </div>
