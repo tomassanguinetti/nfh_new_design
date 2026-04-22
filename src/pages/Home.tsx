@@ -51,9 +51,6 @@ export default function Home({ language }: HomeProps) {
               • {t.goal1}
             </p>
             <p style={{ fontFamily: '"Open Sans", sans-serif' }} className="text-[13px] leading-relaxed text-left">
-              • {t.goal2}
-            </p>
-            <p style={{ fontFamily: '"Open Sans", sans-serif' }} className="text-[13px] leading-relaxed text-left">
               • {t.goal3}
             </p>
           </section>
