@@ -33,10 +33,9 @@ export default function Header({ language, setLanguage }: HeaderProps) {
           whileTap={{ scale: 0.98 }}
         >
           <img 
-            src="https://i.postimg.cc/NF8mgknY/Screenshot-2026-04-20-20-51-14.png" 
+            src="/images/Eng_New.Fed.Logo.png" 
             alt="New Federation logo" 
             className="w-full h-auto object-contain"
-            referrerPolicy="no-referrer"
           />
         </motion.div>
 
