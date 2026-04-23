@@ -69,8 +69,8 @@ export default function Header({ language, setLanguage }: HeaderProps) {
           </nav>
 
           {/* Title Area - One Line */}
-          <div className="w-full max-w-[900px] text-center border-t border-b border-black py-2 mb-2">
-            <h1 className="text-[24px] lg:text-[38px] font-serif font-bold tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis">
+          <div className="w-full text-center py-2 mb-2">
+            <h1 className="text-[24px] lg:text-[42px] font-serif font-bold tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis">
               New Federation House
             </h1>
           </div>

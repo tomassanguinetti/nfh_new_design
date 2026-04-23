@@ -25,9 +25,11 @@ export default function PrimeMinisters({ onNavigate, language }: PrimeMinistersP
       {/* Title Section - Full Width, One Line */}
       <div className="mb-8 border-b border-slate-200 pb-4">
         <h2 className="text-[#cc0000] font-sans text-[28px] font-bold leading-tight uppercase">
-          THE PRIME MINISTERS OF CANADA 7<sup>th</sup> edition
+          {language === 'EN' ? 'THE PRIME MINISTERS OF CANADA 7' : 'LES PREMIERS MINISTRES DU CANADA 7'}<sup>e</sup> {language === 'EN' ? 'edition' : 'édition'}
         </h2>
-        <p className="text-[#2e6e6e] text-[20px] font-bold mt-2">From John A. Macdonald to Mark Carney</p>
+        <p className="text-[#2e6e6e] text-[20px] font-bold mt-2">
+          {language === 'EN' ? 'From John A. Macdonald to Mark Carney' : 'De John A. Macdonald à Mark Carney'}
+        </p>
       </div>
 
       {/* Main Content Area */}
@@ -50,13 +52,13 @@ export default function PrimeMinisters({ onNavigate, language }: PrimeMinistersP
               Gerald C. Gummersell, Editors
             </div>
             <p className="text-[#cc0000] text-[42px] font-bold leading-none">$29.95</p>
-            <p className="text-[14px] font-bold text-black">(taxes included)</p>
+            <p className="text-[14px] font-bold text-black">{language === 'EN' ? '(taxes included)' : '(taxes incluses)'}</p>
             <div className="pt-4">
               <button 
                 onClick={() => onNavigate('order')}
                 className="bg-[#cc0000] text-white font-bold py-3 px-8 uppercase tracking-widest border-2 border-[#cc0000] hover:bg-white hover:text-[#cc0000] transition-colors shadow-lg"
               >
-                Order Now
+                {language === 'EN' ? 'Order Now' : 'Commander maintenant'}
               </button>
             </div>
           </div>
@@ -64,28 +66,76 @@ export default function PrimeMinisters({ onNavigate, language }: PrimeMinistersP
 
         <div className="space-y-6">
           <div className="space-y-1 text-left">
-            <h3 className="text-[22px] font-bold">Foreword</h3>
+            <h3 className="text-[22px] font-bold">{language === 'EN' ? 'Foreword' : 'Avant-propos'}</h3>
             <p className="font-bold">The Right Honourable Adrienne Clarkson</p>
-            <p className="italic">Former Governor General of Canada</p>
+            <p className="italic">{language === 'EN' ? 'Former Governor General of Canada' : 'Ancienne Gouverneure générale du Canada'}</p>
           </div>
 
           <p>
-            In Canada, we have created a country based on social equality. While it is still a work in progress, neither perfect nor complete, it is a glorious experiment. It is not centered in an elite or a self-serving majority but in a society of minorities who learn from each other and who agree, in the words of Louis-Hippolyte Lafontaine, that "there can be no privileged caste in Canada outside and above the mass of its people."
+            {language === 'EN' ? (
+              <>
+                In Canada, we have created a country based on social equality. While it is still a work in progress, neither perfect nor complete, it is a glorious experiment. It is not centered in an elite or a self-serving majority but in a society of minorities who learn from each other and who agree, in the words of Louis-Hippolyte Lafontaine, that "there can be no privileged caste in Canada outside and above the mass of its people."
+              </>
+            ) : (
+              <>
+                Au Canada, nous avons créé un pays fondé sur l'égalité sociale. Bien qu'il s'agisse encore d'un travail en cours, ni parfait ni achevé, c'est une expérience glorieuse. Il n'est pas centré sur une élite ou une majorité égoïste, mais sur une société de minorités qui apprennent les unes des autres et qui conviennent, selon les mots de Louis-Hippolyte Lafontaine, qu'« il ne peut y avoir de caste privilégiée au Canada en dehors et au-dessus de la masse de son peuple ».
+              </>
+            )}
           </p>
           <p>
-            Our trajectory to nationhood began some 400 years ago when French, English and Aboriginal joined in a small circle of mutual benefit and need. Since then, the circle has widened to welcome native-born and immigrant and we have collaborated in building a pluralistic society that Pierre Elliott Trudeau envisioned would make Canada "the envied seat of a form of federalism that belongs to tomorrow's world."
+            {language === 'EN' ? (
+              <>
+                Our trajectory to nationhood began some 400 years ago when French, English and Aboriginal joined in a small circle of mutual benefit and need. Since then, the circle has widened to welcome native-born and immigrant and we have collaborated in building a pluralistic society that Pierre Elliott Trudeau envisioned would make Canada "the envied seat of a form of federalism that belongs to tomorrow's world."
+              </>
+            ) : (
+              <>
+                Notre trajectoire vers la nation a commencé il y a quelque 400 ans lorsque Français, Anglais et Autochtones se sont unis dans un petit cercle d'avantages et de besoins mutuels. Depuis lors, le cercle s'est élargi pour accueillir les natifs et les immigrants et nous avons collaboré à la construction d'une société pluraliste dont Pierre Elliott Trudeau imaginait qu'elle ferait du Canada « le siège envié d'une forme de fédéralisme qui appartient au monde de demain ».
+              </>
+            )}
           </p>
           <p>
-            The part played by Canada's leaders in our political awakening begins with Louis-Hippolyte Lafontaine and Robert Baldwin whose reform alliance introduced responsible government and the principles that have guided our best accomplishments. These two men, along with Joseph Howe who brought democracy to Nova Scotia, promoted the democratic ideal of elected representatives serving an educated citizenry.
+            {language === 'EN' ? (
+              <>
+                The part played by Canada's leaders in our political awakening begins with Louis-Hippolyte Lafontaine and Robert Baldwin whose reform alliance introduced responsible government and the principles that have guided our best accomplishments. These two men, along with Joseph Howe who brought democracy to Nova Scotia, promoted the democratic ideal of elected representatives serving an educated citizenry.
+              </>
+            ) : (
+              <>
+                Le rôle joué par les dirigeants du Canada dans notre éveil politique commence avec Louis-Hippolyte Lafontaine et Robert Baldwin dont l'alliance de réforme a introduit le gouvernement responsable et les principes qui ont guidé nos meilleures réalisations. Ces deux hommes, ainsi que Joseph Howe qui a apporté la démocratie en Nouvelle-Écosse, ont promu l'idéal démocratique de représentants élus au service d'une population instruite.
+              </>
+            )}
           </p>
           <p>
-            Our prime ministers have guided our country's destiny by adhering to the ethics that give responsible government its integrity, and by responding with restraint and moderation to the difficulties posed by a complex population and geography. Their success in good governance has given us political captains who have helped chart our evolution, from the Charlottetown Conference in 1864 to the creation of Nunavut and the Nisga'a treaty in 2000. Their commitment to advance the collective well-being was expressed by Joseph Howe in his dictum, "The only questions I ask myself are, What is right? What is just? What is for the public good?" and reflects a fundamental principle that has become a national characteristic.
+            {language === 'EN' ? (
+              <>
+                Our prime ministers have guided our country's destiny by adhering to the ethics that give responsible government its integrity, and by responding with restraint and moderation to the difficulties posed by a complex population and geography. Their success in good governance has given us political captains who have helped chart our evolution, from the Charlottetown Conference in 1864 to the creation of Nunavut and the Nisga'a treaty in 2000. Their commitment to advance the collective well-being was expressed by Joseph Howe in his dictum, "The only questions I ask myself are, What is right? What is just? What is for the public good?" and reflects a fundamental principle that has become a national characteristic.
+              </>
+            ) : (
+              <>
+                Nos premiers ministres ont guidé le destin de notre pays en adhérant à l'éthique qui donne son intégrité au gouvernement responsable, et en répondant avec retenue et modération aux difficultés posées par une population et une géographie complexes. Leur succès en matière de bonne gouvernance nous a donné des capitaines politiques qui ont aidé à tracer notre évolution, de la Conférence de Charlottetown en 1864 à la création du Nunavut et au traité Nisga'a en 2000. Leur engagement à faire progresser le bien-être collectif a été exprimé par Joseph Howe dans son dicton : « Les seules questions que je me pose sont : Qu'est-ce qui est juste ? Qu'est-ce qui est bien ? Qu'est-ce qui est pour le bien public ? » et reflète un principe fondamental qui est devenu une caractéristique nationale.
+              </>
+            )}
           </p>
           <p>
-            As we look at our nation's history, we see how Canada has been influenced by the character and actions of our prime ministers. Their limitations and their mistakes are lessons in nation building for all of us. But the solid principles that have informed their terms of office—their egalitarian assumptions, their reliance on a reasoned, rather than coercive, call to unity and justice—have assisted our nation in its most admirable accomplishment, that of being a working democracy.
+            {language === 'EN' ? (
+              <>
+                As we look at our nation's history, we see how Canada has been influenced by the character and actions of our prime ministers. Their limitations and their mistakes are lessons in nation building for all of us. But the solid principles that have informed their terms of office—their egalitarian assumptions, their reliance on a reasoned, rather than coercive, call to unity and justice—have assisted our nation in its most admirable accomplishment, that of being a working democracy.
+              </>
+            ) : (
+              <>
+                Lorsque nous regardons l'histoire de notre nation, nous voyons comment le Canada a été influencé par le caractère et les actions de nos premiers ministres. Leurs limites et leurs erreurs sont des leçons de construction nationale pour nous tous. Mais les principes solides qui ont éclairé leurs mandats — leurs présupposés égalitaires, leur recours à un appel raisonné, plutôt que coercitif, à l'unité et à la justice — ont aidé notre nation dans sa réalisation la plus admirable, celle d'être une démocratie qui fonctionne.
+              </>
+            )}
           </p>
           <p>
-            I am grateful to those who contributed to this book. To its readers, I offer my hope that it will encourage you to read more about Canada's leaders and its history. We have, from an elite-driven colonial past, created a prosperous, generous place, a country that has moved from ethnocentrism to a creative and dynamic inclusiveness, and our leaders have played a central part in this transformation. Our role as citizens in this democracy is not separate from that of our politicians. Together, we are engaged in establishing ideals that my predecessor Lord Alexander encouraged Canadians to pursue, those "... moral and spiritual values which form the character of a people and make them truly great."
+            {language === 'EN' ? (
+              <>
+                I am grateful to those who contributed to this book. To its readers, I offer my hope that it will encourage you to read more about Canada's leaders and its history. We have, from an elite-driven colonial past, created a prosperous, generous place, a country that has moved from ethnocentrism to a creative and dynamic inclusiveness, and our leaders have played a central part in this transformation. Our role as citizens in this democracy is not separate from that of our politicians. Together, we are engaged in establishing ideals that my predecessor Lord Alexander encouraged Canadians to pursue, those "... moral and spiritual values which form the character of a people and make them truly great."
+              </>
+            ) : (
+              <>
+                Je suis reconnaissant envers ceux qui ont contribué à ce livre. À ses lecteurs, j'exprime mon espoir qu'il vous encouragera à en apprendre davantage sur les dirigeants et l'histoire du Canada. À partir d'un passé colonial dirigé par une élite, nous avons créé un endroit prospère et généreux, un pays qui est passé de l'ethnocentrisme à une inclusion créative et dynamique, et nos dirigeants ont joué un rôle central dans cette transformation. Notre rôle de citoyens dans cette démocratie n'est pas séparé de celui de nos politiciens. Ensemble, nous sommes engagés à établir les idéaux que mon prédécesseur Lord Alexander encourageait les Canadiens à poursuivre, ces « ... valeurs morales et spirituelles qui forment le caractère d'un peuple et le rendent vraiment grand. »
+              </>
+            )}
           </p>
         </div>
       </div>
