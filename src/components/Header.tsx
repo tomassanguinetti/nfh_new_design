@@ -23,7 +23,7 @@ export default function Header({ language, setLanguage }: HeaderProps) {
   const t = translations[language];
 
   return (
-    <header className="w-full max-w-[1240px] mx-auto px-4 py-4 md:pt-4 md:pb-8 font-serif">
+    <header className="w-full max-w-[1240px] mx-auto px-4 py-4 md:pt-4 md:pb-8 font-serif" style={{ letterSpacing: '0.09em' }}>
       <div className="flex flex-col lg:flex-row items-center lg:items-end gap-6 lg:gap-10">
         {/* Logo Section - Frameless and Clean */}
         <motion.div 
@@ -33,10 +33,9 @@ export default function Header({ language, setLanguage }: HeaderProps) {
           whileTap={{ scale: 0.98 }}
         >
           <img 
-            src="https://i.postimg.cc/NF8mgknY/Screenshot-2026-04-20-20-51-14.png" 
+            src="/images/Eng_New.Fed.Logo.png" 
             alt="New Federation logo" 
             className="w-full h-auto object-contain"
-            referrerPolicy="no-referrer"
           />
         </motion.div>
 
@@ -51,15 +50,11 @@ export default function Header({ language, setLanguage }: HeaderProps) {
                   onClick={() => navigate(item.path)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  style={{ fontFamily: '"Arial Black", Gadget, sans-serif' }}
+                  style={{ fontFamily: '"Open Sans", sans-serif' }}
                   className={`
-                    flex-x flex-1 px-1 py-3 text-[10px] lg:text-[11px] font-black uppercase tracking-tighter
+                    flex-x flex-1 px-1 py-0 text-[16px] font-normal uppercase tracking-tighter
                     transition-all duration-200 text-center flex items-center justify-center
-                    cursor-pointer shadow-sm min-h-[54px] leading-[1.1]
-                    ${location.pathname === item.path 
-                      ? 'bg-[#5d1a33] text-white' 
-                      : 'bg-gray-100 text-[#5d1a33] hover:bg-gray-200'
-                    }
+                    cursor-pointer shadow-sm min-h-[54px] leading-[1.1] bg-white text-black
                   `}
                 >
                   {t.menu[item.labelKey as keyof typeof t.menu]}
@@ -69,8 +64,8 @@ export default function Header({ language, setLanguage }: HeaderProps) {
           </nav>
 
           {/* Title Area - One Line */}
-          <div className="w-full max-w-[900px] text-center border-t border-b border-black py-2 mb-2">
-            <h1 className="text-[24px] lg:text-[38px] font-serif font-bold tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis">
+          <div className="w-full max-w-[900px] text-center py-2 mb-2">
+            <h1 className="text-[24px] lg:text-[48px] font-serif font-bold tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis" style={{ letterSpacing: '0.06em' }}>
               New Federation House
             </h1>
           </div>

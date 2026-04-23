@@ -26,34 +26,31 @@ export default function Home({ language }: HomeProps) {
 
           <section>
             <h2 className="text-[15px] font-bold text-black border-b border-black mb-2 uppercase">{t.aboutUsTitle}</h2>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p style={{ fontFamily: '"Open Sans", sans-serif' }} className="text-[13px] leading-relaxed text-left">
               {t.aboutUsText}
             </p>
           </section>
 
           <section>
             <h2 className="text-[15px] font-bold text-black border-b border-black mb-2 uppercase">{t.missionTitle}</h2>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p style={{ fontFamily: '"Open Sans", sans-serif' }} className="text-[13px] leading-relaxed text-left">
               {t.missionText}
             </p>
           </section>
 
           <section>
             <h2 className="text-[15px] font-bold text-black border-b border-black mb-2 uppercase">{t.visionTitle}</h2>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p style={{ fontFamily: '"Open Sans", sans-serif' }} className="text-[13px] leading-relaxed text-left">
               {t.visionText}
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="text-[15px] font-bold text-black border-b border-black mb-2 uppercase">{t.goalsTitle}</h2>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p style={{ fontFamily: '"Open Sans", sans-serif' }} className="text-[13px] leading-relaxed text-left">
               • {t.goal1}
             </p>
-            <p className="text-[13px] leading-relaxed text-justify">
-              • {t.goal2}
-            </p>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p style={{ fontFamily: '"Open Sans", sans-serif' }} className="text-[13px] leading-relaxed text-left">
               • {t.goal3}
             </p>
           </section>
@@ -79,7 +76,7 @@ export default function Home({ language }: HomeProps) {
         <div className="space-y-6 text-center">
           <div className="space-y-1">
             <h2 className="text-[#cc0000] text-[24px] font-bold uppercase tracking-tight">{t.newRelease}</h2>
-            <h3 className="text-black text-[24px] font-serif font-bold uppercase leading-tight">
+            <h3 style={{ fontFamily: '"Crimson Text", serif' }} className="text-black text-[24px] font-serif font-bold uppercase leading-tight">
               {t.pmTitle}
             </h3>
             <p className="text-black text-[18px] font-bold uppercase">{t.seventhEdition}</p>
@@ -117,7 +114,7 @@ export default function Home({ language }: HomeProps) {
             </div>
           </div>
 
-          <div className="text-[13px] leading-relaxed text-justify px-2">
+          <div style={{ fontFamily: '"Open Sans", sans-serif' }} className="text-[13px] leading-relaxed text-left px-2">
             <p>
               {showFullPm ? t.pmSummary : `${t.pmSummary.substring(0, 300)}...`}
             </p>
@@ -140,7 +137,7 @@ export default function Home({ language }: HomeProps) {
         <div className="space-y-6 text-center">
           <div className="space-y-1">
             <h2 className="text-[#cc0000] text-[24px] font-bold uppercase tracking-tight">{t.worldLeadersRelease}</h2>
-            <h3 className="text-black text-[24px] font-serif font-bold uppercase leading-tight">
+            <h3 style={{ fontFamily: '"Crimson Text", serif' }} className="text-black text-[24px] font-serif font-bold uppercase leading-tight">
               {t.worldLeadersTitle}
             </h3>
             <p className="text-black text-[18px] font-bold uppercase">{t.worldLeadersSubtitle}</p>
@@ -180,7 +177,7 @@ export default function Home({ language }: HomeProps) {
             </div>
           </div>
 
-          <div className="text-[13px] leading-relaxed text-justify px-2">
+          <div style={{ fontFamily: '"Open Sans", sans-serif' }} className="text-[13px] leading-relaxed text-left px-2">
             <p>
               {showFullWorld ? t.worldLeadersSummary : `${t.worldLeadersSummary.substring(0, 300)}...`}
             </p>
