@@ -84,8 +84,8 @@ export default function OrderFormPM({ onBack, language }: OrderFormPMProps) {
              </div>
           </div>
           <div className="bg-[#4a4a4a] text-white px-4 py-2 mr-2">
-             <h1 className="text-sm font-black italic tracking-tighter uppercase whitespace-nowrap">
-               ORDER FORM / BON DE COMMANDE
+             <h1 className="text-[30px] font-black uppercase whitespace-nowrap" style={{ fontFamily: 'inherit', letterSpacing: '0.4em', fontStyle: 'normal' }}>
+               ORDER FORM
              </h1>
           </div>
         </div>
@@ -94,7 +94,7 @@ export default function OrderFormPM({ onBack, language }: OrderFormPMProps) {
           {/* Left Column */}
           <div className="col-span-12 md:col-span-6 space-y-6">
             <div className="bg-[#004b87] p-4 text-white w-full font-archivo border-4 border-[#cc0000]">
-              <h2 className="text-4xl font-black leading-tight tracking-tighter uppercase mb-2 w-full text-center">
+              <h2 className="text-4xl font-black uppercase mb-2 w-full text-center" style={{ letterSpacing: '0.2em', lineHeight: '1em' }}>
                 THE PRIME MINISTERS OF CANADA
               </h2>
               <h3 className="text-3xl font-black italic mb-4 w-full text-center">7<sup className="text-xl">TH</sup> EDITION</h3>
