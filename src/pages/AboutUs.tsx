@@ -1,11 +1,10 @@
 import React from 'react';
 
 interface AboutUsProps {
-  onNavigate: (page: string) => void;
   language: 'EN' | 'FR';
 }
 
-export default function AboutUs({ onNavigate, language }: AboutUsProps) {
+export default function AboutUs({ language }: AboutUsProps) {
   const content = {
     EN: {
       breadcrumb: "About Us",
@@ -35,7 +34,7 @@ export default function AboutUs({ onNavigate, language }: AboutUsProps) {
     <div className="flex-1 px-4 md:px-8 py-4 md:border-l-[3px] border-[#cc0000] md:ml-4 overflow-hidden">
       <h2 className="text-[#2e6e6e] font-sans text-[18px] font-bold mb-8 uppercase tracking-widest">{content.breadcrumb}</h2>
       
-      <div className="space-y-8 text-[17px] leading-relaxed max-w-[800px] text-slate-800">
+      <div className="space-y-8 text-[17px] leading-relaxed max-w-[800px] text-slate-800 text-left">
         <section className="space-y-4">
           <h3 className="text-[#cc0000] font-bold text-[20px] uppercase">{content.missionTitle}</h3>
           <p>{content.missionP1}</p>

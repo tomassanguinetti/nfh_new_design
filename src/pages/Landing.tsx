@@ -9,9 +9,9 @@ export default function Landing({ onSelect }: LandingProps) {
     <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
       <div className="mb-16">
         <img 
-          src="https://i.postimg.cc/NF8mgknY/Screenshot-2026-04-20-20-51-14.png" 
+          src="https://www.newfederation.org/Images/NewFederation_logo_bil.jpg" 
           alt="New Federation House logo" 
-          className="max-w-[300px] w-full h-auto"
+          className="max-w-[500px] w-full h-auto"
           referrerPolicy="no-referrer"
         />
       </div>

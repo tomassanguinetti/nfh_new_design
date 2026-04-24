@@ -4,17 +4,22 @@ export const translations = {
   EN: {
     menu: {
       about: "ABOUT US",
-      order: "THE CANADIAN LEADERSHIP \n PUBLICATION COLLECTION",
-      world: "OTHER PUBLICATIONS",
+      books: "BOOKS",
+      publications: "OTHER PUBLICATIONS",
       directors: "DIRECTORS",
       photos: "PHOTOS",
       testimonials: "TESTIMONIALS",
       donate: "Donate",
+      moreInfo: "More Information",
     },
     header: {
       telephone: "Telephone",
       email: "E-mail",
       mailingOnly: "Mailing Address Only - ( Not open to the Public )",
+      underConstruction: "Page Under Construction",
+      returningSoon: "We are currently updating this section. Please check back soon.",
+      backHome: "Return to Home",
+      siteTitle: "New Federation House",
     },
     home: {
       bannerNotice: "Please note the New Federation Website is Currently updating, but fully functional to place Book Orders",
@@ -58,17 +63,22 @@ export const translations = {
   FR: {
     menu: {
       about: "À PROPOS",
-      order: "LA COLLECTION DE PUBLICATIONS \n SUR LE LEADERSHIP CANADIEN",
-      world: "AUTRES PUBLICATIONS",
+      books: "LIVRES",
+      publications: "AUTRES PUBLICATIONS",
       directors: "ADMINISTRATEURS",
       photos: "PHOTOS",
       testimonials: "TÉMOIGNAGES",
       donate: "Faire un don",
+      moreInfo: "Plus d'informations",
     },
     header: {
       telephone: "Téléphone",
       email: "Courriel",
       mailingOnly: "Adresse postale seulement - ( Non ouvert au public )",
+      underConstruction: "Page en construction",
+      returningSoon: "Nous mettons actuellement à jour cette section. Veuillez revenir bientôt.",
+      backHome: "Retour à l'accueil",
+      siteTitle: "La Maison nouvelle fédération",
     },
     home: {
       bannerNotice: "Veuillez noter que le site Web de la Nouvelle Fédération est en cours de mise à jour, mais il est tout à fait fonctionnel pour passer des commandes de livres.",

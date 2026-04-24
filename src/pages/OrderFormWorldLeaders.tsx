@@ -8,26 +8,9 @@ interface OrderFormWorldLeadersProps {
 }
 
 export default function OrderFormWorldLeaders({ onBack, language }: OrderFormWorldLeadersProps) {
-  const logoUrl = language === 'EN' 
-    ? "https://i.postimg.cc/NF8mgknY/Screenshot-2026-04-20-20-51-14.png"
-    : "https://i.postimg.cc/NF8mgknY/Screenshot-2026-04-20-20-51-14.png";
-
   const formRef = useRef<HTMLDivElement>(null);
-  const [numBooks, setNumBooks] = useState<number>(0);
-  const pricePerBook = 29.95;
-  const shipping = 9.0;
   
-  const getSubtotal = (n: number) => {
-    if (n === 0) return 0;
-    if (n === 1) return 29.95;
-    if (n === 2) return 50.00;
-    if (n === 3) return 55.00;
-    return 60.00; // 4 or more
-  };
-
-  const subtotal = getSubtotal(numBooks);
-  const total = numBooks > 0 ? (subtotal + shipping).toFixed(2) : "0.00";
-
+  const [qty, setQty] = useState<number | ''>('');
   const [formData, setFormData] = useState({
     name: '',
     org: '',
@@ -37,6 +20,10 @@ export default function OrderFormWorldLeaders({ onBack, language }: OrderFormWor
     postalCode: ''
   });
 
+  const pricePerBook = 29.95;
+  const shipping = 9.0;
+  const total = qty && typeof qty === 'number' ? (qty * pricePerBook + shipping).toFixed(2) : "0.00";
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -44,154 +31,213 @@ export default function OrderFormWorldLeaders({ onBack, language }: OrderFormWor
 
   const handlePrint = async () => {
     if (!formRef.current) return;
-    const canvas = await html2canvas(formRef.current, { scale: 2, useCORS: true, logging: false });
-    const imgData = canvas.toDataURL('image/png');
+    
+    const canvas = await html2canvas(formRef.current, { 
+      scale: 2, 
+      useCORS: true, 
+      logging: false,
+      backgroundColor: '#ffffff'
+    });
+    
+    const imgData = canvas.toDataURL('image/jpeg', 1.0);
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    
+    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
     const pdfUrl = pdf.output('bloburl');
     window.open(pdfUrl, '_blank');
   };
 
   return (
-    <div className="flex-1 px-4 md:px-8 py-8 bg-white md:border-l-[3px] border-[#cc0000] md:ml-4 print:p-0 print:border-0 print:ml-0">
-      <div className="bg-[#cc0000] p-1 mb-6 print:hidden flex justify-between" data-html2canvas-ignore>
+    <div className="flex-1 px-4 md:px-8 py-8 bg-slate-50 min-h-screen">
+      <div className="max-w-[850px] mx-auto mb-6 flex justify-between items-center no-print">
         <button 
           onClick={onBack}
-          className="text-white text-sm font-bold uppercase py-1 px-4 border border-white hover:bg-white hover:text-[#cc0000] transition-colors"
+          className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded transition-colors text-sm"
         >
-          Back to Selection
+          {language === 'EN' ? '← Back' : '← Retour'}
+        </button>
+        <button 
+          onClick={handlePrint}
+          className="bg-[#cc0000] hover:bg-[#a60000] text-white font-bold py-2 px-6 rounded transition-colors shadow-lg text-sm uppercase tracking-widest"
+        >
+          {language === 'EN' ? 'Generate PDF' : 'Générer le PDF'}
         </button>
       </div>
 
-      <div ref={formRef} className="max-w-[800px] mx-auto border-2 border-black p-0 overflow-hidden bg-white shadow-xl mb-12">
-        {/* Header Banner */}
-        <div className="bg-[#cc0000] p-4 flex flex-col md:flex-row justify-between items-center gap-4 border-b-2 border-black text-center md:text-left">
+      <div 
+        ref={formRef} 
+        className="max-w-[850px] mx-auto bg-white border-4 border-white shadow-2xl overflow-hidden font-archivo text-black p-8 space-y-8"
+        style={{ minHeight: '1050px' }}
+      >
+        {/* Yellow Header */}
+        <div className="bg-[#fdf8b3] p-2 flex justify-between items-center border-4 border-[#cc0000]">
           <div className="flex items-center gap-4">
-             <img src={logoUrl} alt="Logo" className="h-16" referrerPolicy="no-referrer" />
-          </div>
-          <div className="bg-[#5a4632] px-8 py-2 border-2 border-black">
-            <h1 className="text-white font-sans text-[24px] md:text-[32px] font-bold tracking-[0.1em] md:tracking-[0.2em] uppercase whitespace-nowrap">ORDER FORM</h1>
-          </div>
-        </div>
-
-        <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Left Section */}
-          <div className="space-y-6">
-            <div className="bg-[#5a1c3e] p-6 text-white text-center space-y-2 border-2 border-black">
-              <h2 className="text-[20px] font-bold uppercase font-sans">THE WORLD'S GREAT LEADERS</h2>
-              <p className="text-[14px] uppercase border-b border-white pb-2 mb-2">Humanity, Justice, Peace</p>
-              <div className="flex justify-center items-end gap-1 pt-4">
-                <span className="text-[40px] font-bold leading-none">$</span>
-                <span className="text-[64px] font-bold leading-none">29</span>
-                <div className="flex flex-col items-start leading-none -mb-1">
-                  <span className="text-[32px] font-bold">95</span>
-                  <span className="text-[10px] font-bold uppercase mt-1">PRICE<br />PER BOOK</span>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-center font-bold text-[18px]">ISBN 978-1-987832-41-9</p>
-
-            <div className="space-y-4">
-              <div className="flex border-2 border-black">
-                <div className="bg-[#cc0000] text-white p-3 font-bold uppercase text-[14px] flex-[3] flex items-center justify-center text-center leading-tight">
-                  NUMBER OF<br />BOOKS ORDERED
-                </div>
-                <div className="flex-[2] bg-white">
-                  <input 
-                    type="number" 
-                    min="0"
-                    value={numBooks || ''}
-                    onChange={(e) => setNumBooks(parseInt(e.target.value) || 0)}
-                    className="w-full h-full p-2 text-center text-4xl font-black bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-auto [&::-webkit-inner-spin-button]:appearance-auto"
-                  />
-                </div>
-              </div>
-
-              <div className="flex border-2 border-black">
-                <div className="bg-[#334155] text-white p-3 font-bold uppercase text-[18px] flex-[3] flex items-center justify-center">
-                  SHIPPING
-                </div>
-                <div className="flex-[2] bg-white p-3 text-center text-2xl font-bold border-l-2 border-black">
-                  $9.00
-                </div>
-              </div>
-
-              <div className="flex border-4 border-black">
-                <div className="bg-[#cc0000] text-white p-3 font-bold uppercase text-[18px] flex-[3] flex flex-col items-center justify-center text-center">
-                  <span>TOTAL</span>
-                  <span className="text-[10px] normal-case mt-1 font-normal italic">TAXES INCLUDED</span>
-                </div>
-                <div className="flex-[2] bg-white p-3 text-center text-3xl font-bold flex items-center justify-center">
-                  $ {total}
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4 pt-4">
-              <h3 className="text-[#0073ab] font-bold text-[20px] uppercase border-b-2 border-[#0073ab] pb-1">HOW TO ORDER AND PAY</h3>
-              <div className="space-y-3 text-[14px]">
-                <p className="font-bold"><span className="text-[#cc0000]">Email your order to:</span><br /><span className="text-black text-[16px]">newfederationhouse@gmail.com</span></p>
-                <p className="font-bold"><span className="text-[#cc0000]">Bank E-Transfer payment to:</span><br /><span className="text-black text-[16px]">newfederationhouse@gmail.com</span></p>
-                <div className="text-[#cc0000] font-bold italic text-[13px]">
-                  <p>Please Mail both your cheque and the</p>
-                  <p>completed order form to the following address</p>
-                </div>
-                <div className="text-[13px] font-bold text-[#374151]">
-                   <p className="text-[#2563eb]">Mailing Address Only - ( Not open to the Public )</p>
-                   <p className="text-[16px] text-black uppercase mt-1 font-black">NEW FEDERATION HOUSE</p>
-                   <p className="text-[15px] text-black">M161- 4338 Innes Road, Ottawa, ON K4A 3W3</p>
-                   <p className="mt-2 font-bold whitespace-nowrap"><span className="text-[#2563eb]">Contact us</span> - Telephone: 613-415-6352</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Section */}
-          <div className="space-y-6">
-            <div className="bg-[#f8fafc] p-2 border border-black shadow-md">
+             <div className="flex items-center">
                 <img 
-                  src="https://i.postimg.cc/c46JvWrM/2-Eng-Worlds-Leaders-v5-1.png" 
-                  alt="The World's Great Leaders" 
-                  className="w-full h-auto"
-                  referrerPolicy="no-referrer"
+                   src="https://i.postimg.cc/GmXwrt8s/New-Federation-Logo-Bilingual-Official.png" 
+                   alt="Logo" 
+                   className="h-16 w-auto object-contain"
+                   referrerPolicy="no-referrer"
                 />
+             </div>
+          </div>
+          <div className="bg-[#4a4a4a] text-white px-4 py-2 mr-2">
+             <h1 className="text-sm font-black italic tracking-tighter uppercase whitespace-nowrap">
+               ORDER FORM / BON DE COMMANDE
+             </h1>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-12 gap-8">
+          {/* Left Column */}
+          <div className="col-span-12 md:col-span-6 space-y-6">
+            <div className="bg-[#5a1d37] p-4 text-white w-full font-archivo border-4 border-yellow-400">
+              <h2 className="text-4xl font-black leading-tight tracking-tighter uppercase mb-2 w-full text-center">
+                THE WORLD'S GREAT LEADERS
+              </h2>
+              <div className="flex items-start justify-center w-full">
+                <span className="text-6xl font-black pr-1 pt-6">$</span>
+                <span className="text-9xl font-black tracking-tighter leading-none">29</span>
+                <div className="flex flex-col pl-2 pt-3">
+                   <span className="text-5xl font-black leading-none">95</span>
+                   <span className="text-[14px] font-bold uppercase mt-2 leading-none">PRICE<br />PER BOOK</span>
+                </div>
+              </div>
             </div>
+
+            <p className="text-center font-bold text-xl">ISBN 978-1-987832-41-9</p>
 
             <div className="space-y-4">
-              {[
-                { label: 'NAME :', name: 'name' },
-                { label: 'ORG :', name: 'org' },
-                { label: 'ADDRESS :', name: 'address' },
-                { label: 'CITY :', name: 'city' },
-                { label: 'PROVINCE :', name: 'province' },
-                { label: 'POSTAL CODE:', name: 'postalCode' }
-              ].map(field => (
-                <div key={field.name} className="flex border-b-2 border-black items-end pb-1 pt-2">
-                  <label className="font-bold text-[14px] shrink-0 min-w-[120px] uppercase">{field.label}</label>
-                  <input 
-                    type="text" 
-                    name={field.name}
-                    value={(formData as any)[field.name]}
-                    onChange={handleInputChange}
-                    className="flex-1 focus:outline-none px-2 text-[16px]" 
-                  />
-                </div>
-              ))}
+               <div className="flex items-center">
+                 <div className="bg-[#cc0000] text-white p-2 flex-grow text-center font-black h-14 flex items-center justify-center uppercase leading-tight mr-4">
+                    NUMBER OF<br />BOOKS ORDERED
+                 </div>
+                 <input 
+                    type="number"
+                    min="1"
+                    value={qty}
+                    onChange={(e) => setQty(e.target.value === '' ? '' : parseInt(e.target.value))}
+                    className="border-2 border-black w-24 h-14 text-center text-3xl font-black focus:outline-none bg-white"
+                 />
+               </div>
+
+               <div className="flex items-center">
+                 <div className="bg-[#5a1d37] text-white p-2 flex-grow text-center font-black h-14 flex items-center justify-center uppercase tracking-widest text-xl mr-4">
+                    SHIPPING
+                 </div>
+                 <div className="border-2 border-black w-24 h-14 flex items-center justify-center text-2xl font-black bg-white">
+                    $9.00
+                 </div>
+               </div>
+
+               <div className="flex items-center">
+                 <div className="bg-[#cc0000] text-white p-2 flex-grow text-center font-black h-14 flex items-center justify-center uppercase leading-tight mr-4 relative">
+                    TOTAL
+                    <span className="absolute bottom-1 text-[8px] font-bold">TAXES INCLUDED</span>
+                 </div>
+                 <div className="border-2 border-black w-24 h-14 flex items-center justify-center text-2xl font-black bg-white">
+                    <span className="mr-1">$</span>
+                    {total}
+                 </div>
+               </div>
             </div>
 
-            <div className="pt-8 print:hidden" data-html2canvas-ignore>
-              <button 
-                onClick={handlePrint}
-                className="w-full bg-black text-white font-bold py-3 uppercase tracking-widest border-2 border-black hover:bg-white hover:text-black transition-colors"
-              >
-                PRINT FORM (PDF)
-              </button>
+            <div className="pt-6 space-y-2 font-archivo">
+              <h3 className="text-[#5a1d37] font-black text-2xl tracking-tighter uppercase">HOW TO ORDER AND PAY</h3>
+              
+              <div className="space-y-2">
+                <div>
+                  <p className="text-[#cc0000] font-bold text-sm">Email your order to:</p>
+                  <p className="font-black text-lg">newfederationhouse@gmail.com</p>
+                </div>
+                
+                <div>
+                  <p className="text-[#cc0000] font-bold text-sm">Bank E-Transfer payment to:</p>
+                  <p className="font-black text-lg">newfederationhouse@gmail.com</p>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-[#cc0000] font-bold leading-tight text-sm">
+                    Please Mail both your cheque and the<br />
+                    completed order form to the following address
+                  </p>
+                  <p className="text-blue-600 font-bold text-[12px]">
+                    Mailing Address Only - ( Not open to the Public )
+                  </p>
+                  <p className="font-black text-lg pt-1">NEW FEDERATION HOUSE</p>
+                  <p className="font-bold text-base">M161 - 4338 Innes Road,</p>
+                  <p className="font-bold text-base">Ottawa, ON K4A 3W3</p>
+                  <p className="font-black pt-2 text-sm">Contact us - Telephone: 613 415 6352</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column */}
+          <div className="col-span-12 md:col-span-6 flex flex-col items-center">
+            <div className="mb-4 w-full">
+              <div className="bg-[#5a1d37] p-4 text-center border-4 border-yellow-400">
+                <h2 className="text-yellow-400 font-archivo text-xl font-bold uppercase tracking-widest">
+                  THE WORLD'S GREAT LEADERS
+                </h2>
+                <p className="text-yellow-400 font-serif italic text-sm">Humanity, Justice, Peace</p>
+                
+                <div className="mt-4 bg-white p-2">
+                    <img 
+                      src="https://i.postimg.cc/c46JvWrM/2-Eng-Worlds-Leaders-v5-1.png" 
+                      alt="The World's Great Leaders Book Cover" 
+                      className="w-full h-auto object-contain shadow-sm border border-gray-100"
+                      referrerPolicy="no-referrer"
+                    />
+                </div>
+
+                <div className="mt-4 flex justify-center items-center">
+                    <img src="https://i.postimg.cc/GmXwrt8s/New-Federation-Logo-Bilingual-Official.png" alt="NF Logo" className="h-8 w-auto brightness-200 contrast-200" />
+                    <span className="text-white text-[10px] ml-2 font-serif uppercase tracking-widest">NEW FEDERATION HOUSE</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Address Form Section */}
+            <div className="w-full mt-4 space-y-0.5">
+               {[
+                 { label: 'NAME :', name: 'name' },
+                 { label: 'ORG :', name: 'org' },
+                 { label: 'ADDRESS :', name: 'address' },
+                 { label: '', name: 'address2' }, // Empty spacer for double line address
+                 { label: 'CITY :', name: 'city' },
+                 { label: 'PROVINCE :', name: 'province' },
+                 { label: 'POSTAL CODE :', name: 'postalCode' }
+               ].map((field, idx) => (
+                 <div key={idx} className="flex border-b border-black h-10 items-end pb-1">
+                   <label className="font-black text-[12px] uppercase min-w-[100px] mb-0.5">{field.label}</label>
+                   <input 
+                      type="text"
+                      name={field.name}
+                      value={(formData as any)[field.name] || ''}
+                      onChange={handleInputChange}
+                      className="flex-1 focus:outline-none bg-transparent px-2 font-bold mb-0.5"
+                   />
+                 </div>
+               ))}
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-[850px] mx-auto mt-12 bg-white p-8 border-t-4 border-[#cc0000] shadow-lg text-center">
+         <p className="text-lg font-bold text-gray-800 mb-2">
+            {language === 'EN' 
+              ? "Completed your form?" 
+              : "Formulaire complété ?"}
+         </p>
+         <p className="text-gray-600 mb-6">
+            {language === 'EN'
+              ? "Click 'Generate PDF' at the top to save your completed form, then email it to newfederationhouse@gmail.com"
+              : "Cliquez sur « Générer le PDF » en haut pour enregistrer votre formulaire, puis envoyez-le par e-mail à newfederationhouse@gmail.com"}
+         </p>
       </div>
     </div>
   );

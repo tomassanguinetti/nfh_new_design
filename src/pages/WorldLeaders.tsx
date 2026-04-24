@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const leadersList = [
   'Ardern, Jacinda', 'Bolivar, Simon', 'Bonaparte, Napoléon I', 'Bourguiba, Habib', 'Carter, Jimmy',
@@ -14,11 +15,11 @@ interface WorldLeadersProps {
 }
 
 export default function WorldLeaders({ language }: WorldLeadersProps) {
+  const navigate = useNavigate();
   const content = {
     EN: {
       title: "THE WORLD’S GREAT LEADERS",
-      tagline: "Humanity, Justice, Peace",
-      perspective: "A Canadian Perspective",
+      tagline: "Humanity, Justice, Peace - A Canadian Perspective",
       p1: "We live in a world shaken by wars, atrocities and disorders of all kinds. Dictators and authoritarian regimes continue to afflict mankind. The leaders of today and tomorrow have every interest in improving international order so that justice, democracy and solidarity between nations can prevail.",
       p2: "Given the multiplicity of cultures and differences between peoples, this challenge is crucial. This soon to be published book will give an overview of the great leaders, both men and women who, in every era, fought for a better world and succeeded in transforming adversity into opportunities for revival and growth. Our goal is to pay them tribute in the hope that they may serve as an inspiration to the leaders of today and tomorrow.",
       criteriaTitle: "Selection Criteria -",
@@ -31,7 +32,7 @@ export default function WorldLeaders({ language }: WorldLeadersProps) {
       quote2: "“We must learn to live together as brothers or perish together as fools.”",
       quote3: "“Ask not what your country can do for you ask what you can do for your country.”",
       projectTitle: "A BOOK PROJECT",
-      directedBy: "DIRECTED BY JACQUES G. RUELLAND, PH.D.",
+      directedBy: "Under the direction of Jacques G. Ruelland, PhD",
       aboutUs: "New Federation House is a non-profit organization devoted to public education on Canadian political, economic and social issues.",
       testimonial: "“The quality and content of these volumes are remarkable. I think they should be required reading in every high school and university across the country.”",
       availableIn: "This book is also available in French.",
@@ -41,12 +42,11 @@ export default function WorldLeaders({ language }: WorldLeadersProps) {
     },
     FR: {
       title: "LES GRANDS DIRIGEANTS DU MONDE",
-      tagline: "Humanité, Justice, Paix",
-      perspective: "Une perspective canadienne",
+      tagline: "Humanité, Justice, Paix - Une perspective canadienne",
       p1: "Nous vivons dans un monde secoué par des guerres, des atrocités et des désordres de toutes sortes. Les dictateurs et les régimes autoritaires continuent de tourmenter l'humanité. Les dirigeants d'aujourd'hui et de demain ont tout intérêt à améliorer l'ordre international afin que la justice, la démocratie et la solidarité entre les nations puissent prévaloir.",
       p2: "Étant donné la multiplicité des cultures et les différences entre les peuples, ce défi est crucial. Ce livre, qui paraîtra prochainement, donnera un aperçu des grands dirigeants, tant hommes que femmes, qui, à chaque époque, ont lutté pour un monde meilleur et ont réussi à transformer l'adversité en opportunités de renouveau et de croissance. Notre objectif est de leur rendre hommage dans l'espoir qu'ils puissent servir d'inspiration aux dirigeants d'aujourd'hui et de demain.",
       criteriaTitle: "Critères de sélection -",
-      criteriaText: "Les dirigeants mondiaux, de l'Antiquité à nos jours, qui figureront dans ce livre ont été choisois en fonction de leur capacité à promouvoir des objectifs socio-politiques tels que la réconciliation, l'égalité, la justice, les droits de la personne et la paix.",
+      criteriaText: "Les dirigeants mondiaux, de l'Antiquité à nos jours, qui figureront dans ce livre ont été choisis en fonction de leur capacité à promouvoir des objectifs socio-politiques tels que la réconciliation, l'égalité, la justice, les droits de la personne et la paix.",
       leadersLabel: "Dirigeants -",
       leadersSublabel: "Une trentaine de noms dans la liste suivante ont été choisis",
       leadershipTitle: "Leadership",
@@ -55,7 +55,7 @@ export default function WorldLeaders({ language }: WorldLeadersProps) {
       quote2: "« Nous devons apprendre à vivre ensemble comme des frères, sinon nous allons périr ensemble comme des imbéciles. »",
       quote3: "« Ne demandez pas ce que votre pays peut faire pour vous, demandez ce que vous pouvez faire pour votre pays. »",
       projectTitle: "UN PROJET DE LIVRE",
-      directedBy: "DIRIGÉ PAR JACQUES G. RUELLAND, PH.D.",
+      directedBy: "Sous la direction de Jacques G. Ruelland, PhD",
       aboutUs: "Maison de la Nouvelle Fédération est un organisme à but non lucratif voué à l'éducation du public sur les enjeux politiques, économiques et sociaux canadiens.",
       testimonial: "« La qualité et le contenu de ces volumes sont remarquables. Je pense qu'ils devraient être une lecture obligatoire dans chaque école secondaire et université à travers le pays. »",
       availableIn: "Ce livre est également disponible en anglais.",
@@ -65,41 +65,83 @@ export default function WorldLeaders({ language }: WorldLeadersProps) {
     }
   }[language];
 
-  const logoUrl = "https://i.postimg.cc/NF8mgknY/Screenshot-2026-04-20-20-51-14.png";
-
   return (
-    <div className="flex-1 px-4 md:px-8 py-4 md:border-l-[3px] border-[#cc0000] md:ml-4 overflow-hidden">
-      <div className="flex flex-col gap-12 max-w-[800px] text-[18px] leading-relaxed text-justify relative">
-        {/* Logo and Title Section - Full Width */}
-        <div className="space-y-4 mb-8 border-b border-slate-200 pb-4">
-          <img 
-            src={logoUrl} 
-            alt="New Federation House" 
-            className="h-16"
-            referrerPolicy="no-referrer"
-          />
-          <div className="text-left">
-            <h2 className="text-[#cc0000] font-sans text-[28px] font-bold leading-tight uppercase">
-              {content.title}
-            </h2>
-            <p className="text-[#cc0000] text-[20px] font-bold mt-2">{content.tagline}</p>
-            <p className="italic text-[18px] text-slate-700">{content.perspective}</p>
-          </div>
-        </div>
+    <div className="flex-1 px-4 md:px-8 py-4 overflow-hidden pt-8">
+      {/* Title Section */}
+      <div className="mb-0">
+        <h2 className="text-[#cc0000] font-sans text-[24px] lg:text-[34px] font-bold leading-tight uppercase tracking-tight">
+          {content.title}
+        </h2>
+        <p className="text-[#2e6e6e] text-[20px] lg:text-[24px] font-bold mt-1">
+          {content.tagline}
+        </p>
+      </div>
 
-        {/* Main Content Section */}
-        <div className="space-y-8">
-          {/* Book Cover Container - Floated Right, Lowered */}
-          <div className="flex flex-col md:float-right md:ml-8 mb-8 w-[220px] shrink-0 space-y-4 text-center mx-auto md:mx-0">
+      <div className="w-full h-px bg-gray-200 mt-6 mb-10" />
+
+      {/* Main Content Section */}
+      <div className="text-[17px] leading-[1.6] text-justify relative font-sans text-gray-900">
+        {/* Book Cover Container - Floated Right */}
+        <div className="flex flex-col md:float-right md:ml-12 mb-8 w-[240px] lg:w-[280px] shrink-0 space-y-6 text-center mx-auto md:mx-0">
+          <div className="grid grid-cols-2 gap-2 bg-slate-50 p-2 border border-slate-200 shadow-lg">
             <img 
-              src={language === 'EN' 
-                ? "https://i.postimg.cc/c46JvWrM/2-Eng-Worlds-Leaders-v5-1.png" 
-                : "https://i.postimg.cc/Kv4Y1bRn/2-Fre-Worlds-Leaders.png"} 
-              alt="The World's Great Leaders Book Cover" 
-              className="w-full border border-black shadow-md"
+              src="https://i.postimg.cc/y6MGZXNR/1-Eng-PM-BK-1.png" 
+              alt="PM" 
+              className="w-full aspect-[3/4] object-cover shadow-sm border border-gray-100"
+              referrerPolicy="no-referrer"
+            />
+            <img 
+              src="https://i.postimg.cc/c46JvWrM/2-Eng-Worlds-Leaders-v5-1.png" 
+              alt="World Leaders" 
+              className="w-full aspect-[3/4] object-cover shadow-sm border border-gray-100"
+              referrerPolicy="no-referrer"
+            />
+            <img 
+              src="https://www.newfederation.org/Images/Env-cov-1-150.jpg" 
+              alt="Environmentalists" 
+              className="w-full aspect-[3/4] object-cover shadow-sm border border-gray-100"
+              referrerPolicy="no-referrer"
+            />
+            <img 
+              src="https://www.newfederation.org/Images/Chief-Justices-Book-cover-EN-sml.jpg" 
+              alt="Chief Justices" 
+              className="w-full aspect-[3/4] object-cover shadow-sm border border-gray-100"
+              referrerPolicy="no-referrer"
+            />
+            <img 
+              src="https://www.newfederation.org/Images/GG-E-2.jpg" 
+              alt="GG" 
+              className="w-full aspect-[3/4] object-cover shadow-sm border border-gray-100"
               referrerPolicy="no-referrer"
             />
           </div>
+          <div className="space-y-4 pt-2">
+            <p className="text-[14px] font-bold uppercase tracking-wider">ISBN 978-1-987832-32-7</p>
+            <div className="text-[15px] font-bold leading-tight text-gray-800">
+              {content.directedBy.split(', ').map((line, i, arr) => (
+                <React.Fragment key={i}>
+                  {line}{i < arr.length - 1 ? <>,<br /></> : ''}
+                </React.Fragment>
+              ))}
+            </div>
+            
+            <div className="pt-4">
+              <p className="text-[#cc0000] text-[58px] font-bold leading-none">$29.95</p>
+              <p className="text-[13px] font-bold text-gray-500 uppercase mt-1 tracking-wider">
+                {language === 'EN' ? '(taxes included)' : '(taxes incluses)'}
+              </p>
+            </div>
+
+            <div className="pt-6">
+              <button 
+                onClick={() => navigate('/order/world-leaders')}
+                className="w-full bg-[#cc0000] text-white font-bold py-4 px-8 uppercase tracking-widest border-2 border-[#cc0000] hover:bg-white hover:text-[#cc0000] transition-all duration-300 shadow-xl text-[14px]"
+              >
+                {language === 'EN' ? 'Order Now' : 'Commander maintenant'}
+              </button>
+            </div>
+          </div>
+        </div>
 
           <div className="space-y-6">
             <p>{content.p1}</p>
@@ -183,6 +225,5 @@ export default function WorldLeaders({ language }: WorldLeadersProps) {
           </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }

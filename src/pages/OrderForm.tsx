@@ -4,14 +4,14 @@ import OrderFormCollection from './OrderFormCollection';
 import OrderFormWorldLeaders from './OrderFormWorldLeaders';
 
 interface OrderFormProps {
-  onNavigate: (page: string) => void;
   language: 'EN' | 'FR';
+  initialView?: FormView;
 }
 
 type FormView = 'selection' | 'pm' | 'collection' | 'world';
 
-export default function OrderForm({ onNavigate, language }: OrderFormProps) {
-  const [view, setView] = useState<FormView>('selection');
+export default function OrderForm({ language, initialView = 'selection' }: OrderFormProps) {
+  const [view, setView] = useState<FormView>(initialView);
 
   const logoUrl = language === 'EN' 
     ? "https://i.postimg.cc/NF8mgknY/Screenshot-2026-04-20-20-51-14.png"
@@ -104,10 +104,10 @@ export default function OrderForm({ onNavigate, language }: OrderFormProps) {
       <div className="mt-12 p-6 bg-[#2e6e6e] text-white max-w-[1000px]">
         <h4 className="font-bold text-lg mb-2">HOW TO SUBMIT YOUR ORDER</h4>
         <ul className="list-disc ml-6 space-y-2 text-sm opacity-90">
-          <li>Complete the required fields (Quantity, Name, Address, etc.)</li>
-          <li>Click the "Generate PDF" button to download a copy of your completed form</li>
-          <li>Email the completed form to: <strong>newfederationhouse@gmail.com</strong></li>
-          <li>Bank E-Transfer payment to the same address</li>
+          <li>Select a book above to view its specific order form.</li>
+          <li>For the Prime Ministers book, you can view the form directly in your browser.</li>
+          <li>To place an order, download or print the form image, fill it out, and email it to: <strong>newfederationhouse@gmail.com</strong></li>
+          <li>Bank E-Transfer payment is accepted at the same email address.</li>
         </ul>
       </div>
     </div>

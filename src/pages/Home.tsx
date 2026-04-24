@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { translations, Language } from '../lib/translations';
 
@@ -8,8 +8,6 @@ interface HomeProps {
 
 export default function Home({ language }: HomeProps) {
   const navigate = useNavigate();
-  const [showFullPm, setShowFullPm] = useState(false);
-  const [showFullWorld, setShowFullWorld] = useState(false);
   const t = translations[language].home;
 
   return (
@@ -26,34 +24,34 @@ export default function Home({ language }: HomeProps) {
 
           <section>
             <h2 className="text-[15px] font-bold text-black border-b border-black mb-2 uppercase">{t.aboutUsTitle}</h2>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p className="text-[13px] leading-relaxed text-left">
               {t.aboutUsText}
             </p>
           </section>
 
           <section>
             <h2 className="text-[15px] font-bold text-black border-b border-black mb-2 uppercase">{t.missionTitle}</h2>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p className="text-[13px] leading-relaxed text-left">
               {t.missionText}
             </p>
           </section>
 
           <section>
             <h2 className="text-[15px] font-bold text-black border-b border-black mb-2 uppercase">{t.visionTitle}</h2>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p className="text-[13px] leading-relaxed text-left">
               {t.visionText}
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="text-[15px] font-bold text-black border-b border-black mb-2 uppercase">{t.goalsTitle}</h2>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p className="text-[13px] leading-relaxed text-left">
               • {t.goal1}
             </p>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p className="text-[13px] leading-relaxed text-left">
               • {t.goal2}
             </p>
-            <p className="text-[13px] leading-relaxed text-justify">
+            <p className="text-[13px] leading-relaxed text-left">
               • {t.goal3}
             </p>
           </section>
@@ -79,7 +77,7 @@ export default function Home({ language }: HomeProps) {
         <div className="space-y-6 text-center">
           <div className="space-y-1">
             <h2 className="text-[#cc0000] text-[24px] font-bold uppercase tracking-tight">{t.newRelease}</h2>
-            <h3 className="text-black text-[24px] font-serif font-bold uppercase leading-tight">
+            <h3 className="text-black text-[24px] font-sans font-bold uppercase leading-tight">
               {t.pmTitle}
             </h3>
             <p className="text-black text-[18px] font-bold uppercase">{t.seventhEdition}</p>
@@ -109,7 +107,7 @@ export default function Home({ language }: HomeProps) {
             <div className="flex flex-col items-center gap-1">
               <p className="text-[14px] font-bold uppercase tracking-widest text-slate-700">{t.pmOrderFormTitle}</p>
               <button 
-                onClick={() => navigate('/order')}
+                onClick={() => navigate('/order/pm')}
                 className="bg-[#cc0000] text-white px-8 py-3 rounded font-bold uppercase tracking-widest hover:bg-[#b30000] transition-colors shadow-md"
               >
                 {t.orderNow}
@@ -117,21 +115,36 @@ export default function Home({ language }: HomeProps) {
             </div>
           </div>
 
-          <div className="text-[13px] leading-relaxed text-justify px-2">
+          <div className="text-[13px] leading-relaxed text-center px-2">
             <p>
-              {showFullPm ? t.pmSummary : `${t.pmSummary.substring(0, 300)}...`}
+              {t.pmSummary}
             </p>
-            <button 
-              onClick={() => setShowFullPm(!showFullPm)} 
-              className="text-[#cc0000] font-bold mt-1 hover:underline"
-            >
-              {showFullPm ? t.seeLess : t.seeMore}
-            </button>
+          </div>
+
+          {/* CPAC Sponsorship info moved here */}
+          <div className="pt-6 mt-4 border-t border-gray-100 flex flex-col items-center text-center space-y-3">
+            <p className="text-[11px] font-bold italic leading-tight text-gray-600">
+              {t.footerGratitude}
+            </p>
+            <div className="flex flex-col items-center">
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/d/d7/CPAC_2016_logo.png" 
+                alt="CPAC" 
+                className="h-10 mb-1 opacity-90" 
+                referrerPolicy="no-referrer" 
+              />
+              <p className="text-[12px] font-black uppercase tracking-widest leading-none">
+                {t.cpacFull}
+              </p>
+            </div>
           </div>
 
           <div className="pt-4 border-t border-black">
-            <button onClick={() => navigate('/pm')} className="text-[#cc0000] font-bold underline text-[14px]">
-              {t.pmMoreInfo}
+            <button 
+              onClick={() => navigate('/pm')} 
+              className="bg-[#1a1b41] text-white px-8 py-3 rounded font-bold uppercase tracking-widest hover:bg-[#2a2b51] transition-colors shadow-md text-[14px]"
+            >
+              {language === 'EN' ? 'More Information' : "Plus d'informations"}
             </button>
           </div>
         </div>
@@ -140,7 +153,7 @@ export default function Home({ language }: HomeProps) {
         <div className="space-y-6 text-center">
           <div className="space-y-1">
             <h2 className="text-[#cc0000] text-[24px] font-bold uppercase tracking-tight">{t.worldLeadersRelease}</h2>
-            <h3 className="text-black text-[24px] font-serif font-bold uppercase leading-tight">
+            <h3 className="text-black text-[24px] font-sans font-bold uppercase leading-tight">
               {t.worldLeadersTitle}
             </h3>
             <p className="text-black text-[18px] font-bold uppercase">{t.worldLeadersSubtitle}</p>
@@ -148,7 +161,7 @@ export default function Home({ language }: HomeProps) {
           </div>
 
           <div className="flex justify-center">
-            <div className="relative cursor-pointer" onClick={() => navigate('/publications')}>
+            <div className="relative cursor-pointer" onClick={() => navigate('/world-leaders')}>
               <img 
                 src="https://i.postimg.cc/c46JvWrM/2-Eng-Worlds-Leaders-v5-1.png" 
                 alt="The Great Leaders of the World Book" 
@@ -172,7 +185,7 @@ export default function Home({ language }: HomeProps) {
             <div className="flex flex-col items-center gap-1">
               <p className="text-[14px] font-bold uppercase tracking-widest text-slate-700">{t.leadersOrderFormTitle}</p>
               <button 
-                onClick={() => navigate('/order')}
+                onClick={() => navigate('/order/world-leaders')}
                 className="bg-[#cc0000] text-white px-8 py-3 rounded font-bold uppercase tracking-widest hover:bg-[#b30000] transition-colors shadow-md"
               >
                 {t.orderNow}
@@ -180,39 +193,23 @@ export default function Home({ language }: HomeProps) {
             </div>
           </div>
 
-          <div className="text-[13px] leading-relaxed text-justify px-2">
+          <div className="text-[13px] leading-relaxed text-center px-2">
             <p>
-              {showFullWorld ? t.worldLeadersSummary : `${t.worldLeadersSummary.substring(0, 300)}...`}
+              {t.worldLeadersSummary}
             </p>
-            <button 
-              onClick={() => setShowFullWorld(!showFullWorld)} 
-              className="text-[#cc0000] font-bold mt-1 hover:underline"
-            >
-              {showFullWorld ? t.seeLess : t.seeMore}
-            </button>
           </div>
 
           <div className="pt-4 border-t border-black">
-            <button onClick={() => navigate('/publications')} className="text-[#cc0000] font-bold underline text-[14px]">
-              {t.worldLeadersMoreInfo}
+            <button 
+              onClick={() => navigate('/world-leaders')} 
+              className="bg-[#1a1b41] text-white px-8 py-3 rounded font-bold uppercase tracking-widest hover:bg-[#2a2b51] transition-colors shadow-md text-[14px]"
+            >
+              {language === 'EN' ? 'More Information' : "Plus d'informations"}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Global Footer Acknowledgement */}
-      <div className="mt-16 pt-8 border-t border-black text-center">
-        <p className="text-[14px] max-w-2xl mx-auto mb-6 text-gray-600 font-medium">
-          {t.footerNarrative}
-        </p>
-        <div className="space-y-2">
-          <p className="text-[12px] font-bold italic">{t.footerGratitude}</p>
-          <div className="flex flex-col items-center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/CPAC_2016_logo.png" alt="CPAC" className="h-12 mb-2" referrerPolicy="no-referrer" />
-            <p className="text-[14px] font-black uppercase tracking-widest">{t.cpacFull}</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -26,11 +26,11 @@ export default function LeaderCard({ name, role, image, index }: LeaderCardProps
         />
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-        <h4 className="text-white font-serif text-lg font-bold">{name}</h4>
+        <h4 className="text-white font-sans text-lg font-bold">{name}</h4>
         <p className="text-slate-300 text-[10px] font-bold tracking-widest uppercase mt-1">{role}</p>
       </div>
       <div className="p-4 bg-white group-hover:bg-slate-900 transition-colors duration-300">
-        <h4 className="text-slate-900 group-hover:text-white font-serif text-base font-bold transition-colors">{name}</h4>
+        <h4 className="text-slate-900 group-hover:text-white font-sans text-base font-bold transition-colors">{name}</h4>
       </div>
     </motion.div>
   );

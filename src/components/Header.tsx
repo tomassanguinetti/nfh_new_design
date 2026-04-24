@@ -8,22 +8,22 @@ interface HeaderProps {
   setLanguage: (lang: Language) => void;
 }
 
-const menuItems = [
-  { id: 'about', labelKey: 'about', path: '/about' },
-  { id: 'order', labelKey: 'order', path: '/order' },
-  { id: 'world', labelKey: 'world', path: '/publications' },
-  { id: 'directors', labelKey: 'directors', path: '/directors' },
-  { id: 'photos', labelKey: 'photos', path: '/photos' },
-  { id: 'testimonials', labelKey: 'testimonials', path: '/testimonials' },
-];
-
 export default function Header({ language, setLanguage }: HeaderProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const t = translations[language];
 
+  const navItems = [
+    { id: 'about', path: '/about', labelKey: 'about' },
+    { id: 'books', path: '/books', labelKey: 'books' },
+    { id: 'publications', path: '/publications', labelKey: 'publications' },
+    { id: 'directors', path: '/directors', labelKey: 'directors' },
+    { id: 'photos', path: '/photos', labelKey: 'photos' },
+    { id: 'testimonials', path: '/testimonials', labelKey: 'testimonials' },
+  ];
+
   return (
-    <header className="w-full max-w-[1240px] mx-auto px-4 py-4 md:pt-4 md:pb-8 font-serif">
+    <header className="w-full max-w-[1240px] mx-auto px-4 py-4 md:pt-4 md:pb-8 font-sans">
       <div className="flex flex-col lg:flex-row items-center lg:items-end gap-6 lg:gap-10">
         {/* Logo Section - Frameless and Clean */}
         <motion.div 
@@ -40,56 +40,51 @@ export default function Header({ language, setLanguage }: HeaderProps) {
           />
         </motion.div>
 
-        {/* Center Content: Menu, Title, Address */}
+        {/* Center Content: Title, Address */}
         <div className="flex-1 flex flex-col items-center">
-          {/* Constrained Menu centered above title */}
-          <nav className="w-full max-w-[900px] mb-4">
-            <div className="flex flex-row items-stretch justify-center gap-[2px] w-full">
-              {menuItems.map((item) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => navigate(item.path)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  style={{ fontFamily: '"Arial Black", Gadget, sans-serif' }}
-                  className={`
-                    flex-x flex-1 px-1 py-3 text-[10px] lg:text-[11px] font-black uppercase tracking-tighter
-                    transition-all duration-200 text-center flex items-center justify-center
-                    cursor-pointer shadow-sm min-h-[54px] leading-[1.1]
-                    ${location.pathname === item.path 
-                      ? 'bg-[#5d1a33] text-white' 
-                      : 'bg-gray-100 text-[#5d1a33] hover:bg-gray-200'
-                    }
-                  `}
-                >
-                  {t.menu[item.labelKey as keyof typeof t.menu]}
-                </motion.button>
+          {/* Menu Area */}
+          <nav className="w-full border-b border-gray-100 mb-1">
+            <ul className="flex flex-wrap justify-between items-center gap-4 py-2">
+              {navItems.map((item) => (
+                <li key={item.id} className="relative group">
+                  <button
+                    onClick={() => navigate(item.path)}
+                    style={{ fontFamily: '"Arial Black", Gadget, sans-serif' }}
+                    className="text-[14px] lg:text-[16px] font-black text-gray-800 transition-colors uppercase tracking-tight flex flex-col items-center cursor-pointer relative"
+                  >
+                    <span>{t.menu[item.labelKey as keyof typeof t.menu]}</span>
+                    <span className="absolute -bottom-1 left-0 w-0 h-[2.5px] bg-[#5d1a33] transition-all duration-300 group-hover:w-full"></span>
+                  </button>
+                </li>
               ))}
-            </div>
+            </ul>
           </nav>
 
           {/* Title Area - One Line */}
           <div className="w-full text-center py-2 mb-2">
-            <h1 className="text-[24px] lg:text-[42px] font-serif font-bold tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis">
-              New Federation House
+            <h1 className="text-[24px] lg:text-[45px] font-serif font-medium tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis">
+              {t.header.siteTitle}
             </h1>
           </div>
 
-          {/* Contact Area - One Line */}
-          <div className="w-full max-w-[900px] text-center text-[10px] lg:text-[11.5px] font-sans text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis">
-            <p className="font-bold tracking-tight">
-              {t.header.telephone}: 514-286-0444 | 613-415-6352 | {t.header.email}: newfederationhouse@gmail.com | Ottawa, ON K4A 3W3
+          {/* Contact Area */}
+          <div className="w-full max-w-[900px] text-center text-[10.5px] lg:text-[12px] font-sans text-gray-800 leading-relaxed mt-1">
+            <p className="font-bold tracking-tight uppercase">
+              {t.header.siteTitle} | {t.header.telephone}: 514-286-0444 | 613-415-6352 | {t.header.email}: newfederationhouse@gmail.com
+            </p>
+            <p className="font-bold tracking-tight uppercase">
+              {t.header.mailingOnly} - M057 - 4338 Innes Road, Ottawa, ON K4A 3W3
             </p>
           </div>
         </div>
 
         {/* Action Section */}
-        <div className="shrink-0 flex flex-col gap-2 items-center min-w-[130px] mb-1">
+        <div className="shrink-0 flex flex-col gap-2 items-center min-w-[140px] mb-1">
           <motion.button 
             onClick={() => setLanguage(language === 'EN' ? 'FR' : 'EN')}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full px-4 py-2 border-2 border-[#5d1a33] text-[#5d1a33] font-black text-[11px] uppercase tracking-widest hover:bg-[#5d1a33] hover:text-white transition-all duration-300 shadow-sm"
+            className="w-full px-4 py-5 border-2 border-[#5d1a33] text-[#5d1a33] font-black text-[13px] uppercase tracking-widest hover:bg-[#5d1a33] hover:text-white transition-all duration-300 shadow-sm"
             style={{ fontFamily: '"Arial Black", Gadget, sans-serif' }}
           >
             {language === 'EN' ? 'Français' : 'English'}
@@ -98,7 +93,7 @@ export default function Header({ language, setLanguage }: HeaderProps) {
             onClick={() => navigate('/donate')}
             whileHover={{ scale: 1.02, backgroundColor: '#b30000' }}
             whileTap={{ scale: 0.98 }}
-            className="w-full px-4 py-2 bg-[#cc0000] text-white font-black text-[11px] uppercase tracking-widest transition-all duration-300 shadow-md"
+            className="w-full px-4 py-5 bg-[#cc0000] text-white font-black text-[13px] uppercase tracking-widest transition-all duration-300 shadow-md"
             style={{ fontFamily: '"Arial Black", Gadget, sans-serif' }}
           >
             {t.menu.donate}

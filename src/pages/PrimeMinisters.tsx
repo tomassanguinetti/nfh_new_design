@@ -1,62 +1,62 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { translations } from '../lib/translations';
 
 interface PrimeMinistersProps {
-  onNavigate: (page: string) => void;
   language: 'EN' | 'FR';
 }
 
-export default function PrimeMinisters({ onNavigate, language }: PrimeMinistersProps) {
-  const logoUrl = language === 'EN' 
-    ? "https://i.postimg.cc/NF8mgknY/Screenshot-2026-04-20-20-51-14.png"
-    : "https://i.postimg.cc/NF8mgknY/Screenshot-2026-04-20-20-51-14.png";
-
+export default function PrimeMinisters({ language }: PrimeMinistersProps) {
+  const navigate = useNavigate();
+  const t = translations[language].home;
   return (
-    <div className="flex-1 px-4 md:px-8 py-4 md:border-l-[3px] border-[#cc0000] md:ml-4 overflow-hidden">
-      {/* Logo Section */}
-      <div className="mb-4">
-        <img 
-          src={logoUrl} 
-          alt="New Federation House" 
-          className="h-16 mx-auto md:mx-0"
-          referrerPolicy="no-referrer"
-        />
-      </div>
-
+    <div className="flex-1 px-4 md:px-8 py-4 overflow-hidden pt-8">
       {/* Title Section - Full Width, One Line */}
-      <div className="mb-8 border-b border-slate-200 pb-4">
-        <h2 className="text-[#cc0000] font-sans text-[28px] font-bold leading-tight uppercase">
-          {language === 'EN' ? 'THE PRIME MINISTERS OF CANADA 7' : 'LES PREMIERS MINISTRES DU CANADA 7'}<sup>e</sup> {language === 'EN' ? 'edition' : 'édition'}
+      <div className="mb-0">
+        <h2 className="text-[#cc0000] font-sans text-[24px] lg:text-[34px] font-bold leading-tight uppercase tracking-tight">
+          {language === 'EN' 
+            ? <>THE PRIME MINISTERS OF CANADA 7<sup className="text-[0.6em] align-top">TH</sup> EDITION</> 
+            : <>LES PREMIERS MINISTRES DU CANADA 7<sup className="text-[0.6em] align-top">E</sup> ÉDITION</>
+          }
         </h2>
-        <p className="text-[#2e6e6e] text-[20px] font-bold mt-2">
+        <p className="text-[#2e6e6e] text-[20px] lg:text-[24px] font-bold mt-1">
           {language === 'EN' ? 'From John A. Macdonald to Mark Carney' : 'De John A. Macdonald à Mark Carney'}
         </p>
       </div>
 
+      <div className="w-full h-px bg-gray-200 mt-6 mb-10" />
+
       {/* Main Content Area */}
-      <div className="text-[17px] leading-relaxed text-justify relative">
-        {/* Book Cover Container - Floated Right, Lowered */}
-        <div className="flex flex-col md:float-right md:ml-8 mb-8 w-[220px] shrink-0 space-y-4 text-center mx-auto md:mx-0">
+      <div className="text-[17px] leading-[1.6] text-justify relative font-sans text-gray-900">
+        {/* Book Cover Container - Floated Right */}
+        <div className="flex flex-col md:float-right md:ml-12 mb-8 w-[240px] lg:w-[280px] shrink-0 space-y-6 text-center mx-auto md:mx-0">
           <img 
             src="https://i.postimg.cc/y6MGZXNR/1-Eng-PM-BK-1.png" 
             alt="The Prime Ministers of Canada" 
-            className="w-full border border-black shadow-md"
+            className="w-full shadow-lg border border-gray-100"
             referrerPolicy="no-referrer"
           />
-          <div className="space-y-1">
-            <p className="text-[13px] font-bold">ISBN 978-1-987832-42-6</p>
-            <div className="text-[14px] font-bold leading-tight py-2">
+          <div className="space-y-4 pt-2">
+            <p className="text-[14px] font-bold">ISBN 978-1-987832-42-6</p>
+            <div className="text-[15px] font-bold leading-tight text-gray-800">
               Jean Chevrier,<br />
               Denis L. Daigneault,<br />
               Jeanne Poulin<br />
               and<br />
               Gerald C. Gummersell, Editors
             </div>
-            <p className="text-[#cc0000] text-[42px] font-bold leading-none">$29.95</p>
-            <p className="text-[14px] font-bold text-black">{language === 'EN' ? '(taxes included)' : '(taxes incluses)'}</p>
+            
             <div className="pt-4">
+              <p className="text-[#cc0000] text-[58px] font-bold leading-none">$29.95</p>
+              <p className="text-[13px] font-bold text-gray-500 uppercase mt-1 tracking-wider">
+                {language === 'EN' ? '(taxes included)' : '(taxes incluses)'}
+              </p>
+            </div>
+
+            <div className="pt-6">
               <button 
-                onClick={() => onNavigate('order')}
-                className="bg-[#cc0000] text-white font-bold py-3 px-8 uppercase tracking-widest border-2 border-[#cc0000] hover:bg-white hover:text-[#cc0000] transition-colors shadow-lg"
+                onClick={() => navigate('/order/pm')}
+                className="w-full bg-[#cc0000] text-white font-bold py-4 px-8 uppercase tracking-widest border-2 border-[#cc0000] hover:bg-white hover:text-[#cc0000] transition-all duration-300 shadow-xl text-[14px]"
               >
                 {language === 'EN' ? 'Order Now' : 'Commander maintenant'}
               </button>
@@ -64,11 +64,13 @@ export default function PrimeMinisters({ onNavigate, language }: PrimeMinistersP
           </div>
         </div>
 
-        <div className="space-y-6">
-          <div className="space-y-1 text-left">
-            <h3 className="text-[22px] font-bold">{language === 'EN' ? 'Foreword' : 'Avant-propos'}</h3>
-            <p className="font-bold">The Right Honourable Adrienne Clarkson</p>
-            <p className="italic">{language === 'EN' ? 'Former Governor General of Canada' : 'Ancienne Gouverneure générale du Canada'}</p>
+        <div className="space-y-8">
+          <div className="space-y-2 text-left">
+            <h3 className="text-[24px] lg:text-[26px] font-bold text-black">{language === 'EN' ? 'Foreword' : 'Avant-propos'}</h3>
+            <div className="space-y-0.5">
+              <p className="font-bold text-[18px] text-black">The Right Honourable Adrienne Clarkson</p>
+              <p className="italic text-gray-600 font-medium text-[17px]">{language === 'EN' ? 'Former Governor General of Canada' : 'Ancienne Gouverneure générale du Canada'}</p>
+            </div>
           </div>
 
           <p>
@@ -136,6 +138,24 @@ export default function PrimeMinisters({ onNavigate, language }: PrimeMinistersP
                 Je suis reconnaissant envers ceux qui ont contribué à ce livre. À ses lecteurs, j'exprime mon espoir qu'il vous encouragera à en apprendre davantage sur les dirigeants et l'histoire du Canada. À partir d'un passé colonial dirigé par une élite, nous avons créé un endroit prospère et généreux, un pays qui est passé de l'ethnocentrisme à une inclusion créative et dynamique, et nos dirigeants ont joué un rôle central dans cette transformation. Notre rôle de citoyens dans cette démocratie n'est pas séparé de celui de nos politiciens. Ensemble, nous sommes engagés à établir les idéaux que mon prédécesseur Lord Alexander encourageait les Canadiens à poursuivre, ces « ... valeurs morales et spirituelles qui forment le caractère d'un peuple et le rendent vraiment grand. »
               </>
             )}
+          </p>
+        </div>
+      </div>
+
+      {/* CPAC Sponsorship info moved here */}
+      <div className="mt-16 pt-8 border-t border-gray-200 text-center flex flex-col items-center space-y-4">
+        <p className="text-[14px] font-bold italic text-gray-600">
+          {t.footerGratitude}
+        </p>
+        <div className="flex flex-col items-center">
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/d/d7/CPAC_2016_logo.png" 
+            alt="CPAC" 
+            className="h-16 mb-2" 
+            referrerPolicy="no-referrer" 
+          />
+          <p className="text-[16px] font-black uppercase tracking-widest">
+            {t.cpacFull}
           </p>
         </div>
       </div>

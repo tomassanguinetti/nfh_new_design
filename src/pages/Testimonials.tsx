@@ -88,7 +88,7 @@ export default function Testimonials({ language }: TestimonialsProps) {
       <div className="space-y-12 max-w-[800px]">
         {testimonials.map((t, index) => (
           <div key={index} className="space-y-4 border-b border-slate-50 pb-8 last:border-0">
-            <p className="text-[18px] font-serif italic text-slate-800 leading-relaxed">
+            <p className="text-[18px] font-sans italic text-slate-800 leading-relaxed">
               "{t.quote}"
             </p>
             <div className="flex flex-col">
