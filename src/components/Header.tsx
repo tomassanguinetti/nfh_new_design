@@ -62,7 +62,7 @@ export default function Header({ language, setLanguage }: HeaderProps) {
 
           {/* Title Area - One Line */}
           <div className="w-full text-center py-2 mb-2">
-            <h1 className="text-[24px] lg:text-[60px] font-serif font-medium tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis" style={{ letterSpacing: '0.04em' }}>
+            <h1 className="text-[24px] lg:text-[45px] font-serif font-medium tracking-tight leading-none text-black uppercase whitespace-nowrap overflow-hidden text-ellipsis">
               {t.header.siteTitle}
             </h1>
           </div>

@@ -16,7 +16,7 @@ export default function Home({ language }: HomeProps) {
         {/* Left Column: Info & Updating Box */}
         <div className="space-y-6">
           {/* Top Banner Notice - Moved to Left Column */}
-          <div className="border-2 border-[#1a1b41] bg-[#4548fb] text-white p-4 rounded-xl shadow-sm text-center">
+          <div className="border-2 border-[#1a1b41] bg-white text-[#1a1b41] p-4 rounded-xl shadow-sm text-center">
             <p className="text-[13px] font-bold leading-tight">
               {t.bannerNotice}
             </p>
@@ -76,8 +76,8 @@ export default function Home({ language }: HomeProps) {
         {/* Middle Column: PM Book */}
         <div className="space-y-6 text-center">
           <div className="space-y-1">
-            <h2 className="text-[#cc0000] text-[24px] font-bold uppercase tracking-tight" style={{ fontFamily: '"Open Sans", sans-serif', letterSpacing: '0.45em' }}>{t.newRelease}</h2>
-            <h3 className="text-black text-[24px] font-sans font-bold uppercase leading-tight" style={{ fontFamily: '"Crimson Text", serif' }}>
+            <h2 className="text-[#cc0000] text-[24px] font-bold uppercase tracking-tight">{t.newRelease}</h2>
+            <h3 className="text-black text-[24px] font-sans font-bold uppercase leading-tight">
               {t.pmTitle}
             </h3>
             <p className="text-black text-[18px] font-bold uppercase">{t.seventhEdition}</p>
@@ -152,8 +152,8 @@ export default function Home({ language }: HomeProps) {
         {/* Right Column: World Leaders */}
         <div className="space-y-6 text-center">
           <div className="space-y-1">
-            <h2 className="text-[#cc0000] text-[24px] font-bold uppercase tracking-tight" style={{ fontFamily: '"Open Sans", sans-serif', lineHeight: '1em' }}>{t.worldLeadersRelease}</h2>
-            <h3 className="text-black text-[24px] font-sans font-bold uppercase leading-tight" style={{ fontFamily: '"Crimson Text", serif' }}>
+            <h2 className="text-[#cc0000] text-[24px] font-bold uppercase tracking-tight">{t.worldLeadersRelease}</h2>
+            <h3 className="text-black text-[24px] font-sans font-bold uppercase leading-tight">
               {t.worldLeadersTitle}
             </h3>
             <p className="text-black text-[18px] font-bold uppercase">{t.worldLeadersSubtitle}</p>
