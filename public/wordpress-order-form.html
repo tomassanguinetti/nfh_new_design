@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Form - Prime Ministers of Canada</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- html2canvas and jsPDF for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <style>
+    /* Reset and Base Styles */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f8fafc;
+      color: #000;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .font-archivo {
+      font-family: 'Archivo Black', 'Inter', sans-serif;
+    }
+    
+    /* Container */
+    .order-form-container {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    
+    /* Button Bar */
+    .button-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .btn {
+      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border: none;
+      font-size: 0.875rem;
+    }
+    
+    .btn-back {
+      background-color: #f3f4f6;
+      color: #1f2937;
+    }
+    
+    .btn-back:hover {
+      background-color: #e5e7eb;
+    }
+    
+    .btn-pdf {
+      background-color: #cc0000;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-pdf:hover {
+      background-color: #a60000;
+    }
+    
+    /* Form Container */
+    .form-wrapper {
+      background-color: white;
+      border: 4px solid white;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      padding: 2rem;
+      min-height: 1050px;
+    }
+    
+    /* Yellow Header */
+    .yellow-header {
+      background-color: #fdf8b3;
+      padding: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 4px solid #cc0000;
+      margin-bottom: 2rem;
+    }
+    
+    .logo-container img {
+      height: 4rem;
+      width: auto;
+      object-fit: contain;
+    }
+    
+    .order-form-title-box {
+      background-color: #4a4a4a;
+      color: white;
+      padding: 0.5rem 1rem;
+      margin-right: 0.5rem;
+    }
+    
+    .order-form-title {
+      font-size: 30px;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: nowrap;
+      letter-spacing: 0.4em;
+      font-style: normal;
+      font-family: inherit;
+    }
+    
+    /* Grid Layout */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Blue Price Box */
+    .price-box {
+      background-color: #004b87;
+      padding: 1rem;
+      color: white;
+      width: 100%;
+      font-family: 'Archivo Black', sans-serif;
+      border: 4px solid #cc0000;
+      text-align: center;
+    }
+    
+    .price-box h2 {
+      font-size: 2.25rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.2em;
+      line-height: 1em;
+    }
+    
+    .price-box h3 {
+      font-size: 1.875rem;
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    
+    .price-box sup {
+      font-size: 1.25rem;
+    }
+    
+    .price-display {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      width: 100%;
+    }
+    
+    .price-dollar {
+      font-size: 3.75rem;
+      font-weight: 900;
+      padding-right: 0.25rem;
+      padding-top: 1.5rem;
+    }
+    
+    .price-main {
+      font-size: 9rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    
+    .price-cents-container {
+      display: flex;
+      flex-direction: column;
+      padding-left: 0.5rem;
+      padding-top: 0.75rem;
+    }
+    
+    .price-cents {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    
+    .price-label {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      line-height: 1;
+    }
+    
+    /* ISBN */
+    .isbn-text {
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    
+    /* Order Fields */
+    .order-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .order-field-row {
+      display: flex;
+      align-items: center;
+    }
+    
+    .order-field-label {
+      flex-grow: 1;
+      padding: 0.5rem;
+      text-align: center;
+      font-weight: 900;
+      height: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      line-height: 1.2;
+      margin-right: 1rem;
+    }
+    
+    .order-field-label.red {
+      background-color: #cc0000;
+      color: white;
+    }
+    
+    .order-field-label.blue {
+      background-color: #004b87;
+      color: white;
+      letter-spacing: 0.1em;
+      font-size: 1.25rem;
+    }
+    
+    .order-field-label.total {
+      position: relative;
+    }
+    
+    .order-field-label .tax-note {
+      position: absolute;
+      bottom: 0.25rem;
+      font-size: 8px;
+      font-weight: 700;
+    }
+    
+    .order-field-input,
+    .order-field-value {
+      border: 2px solid black;
+      width: 6rem;
+      height: 3.5rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .order-field-input {
+      font-size: 1.875rem;
+    }
+    
+    input.order-field-input {
+      outline: none;
+    }
+    
+    /* How to Order Section */
+    .how-to-order {
+      padding-top: 1.5rem;
+      font-family: 'Archivo Black', sans-serif;
+    }
+    
+    .how-to-order h3 {
+      color: #004b87;
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    
+    .how-to-order-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .how-to-order .label {
+      color: #cc0000;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+    
+    .how-to-order .value {
+      font-weight: 900;
+      font-size: 1.125rem;
+    }
+    
+    .how-to-order .note {
+      color: #2563eb;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    
+    .how-to-order .address {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    
+    .how-to-order .contact {
+      font-weight: 900;
+      font-size: 0.875rem;
+      padding-top: 0.5rem;
+    }
+    
+    /* Right Column */
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .book-cover {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    
+    .book-cover img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border: 4px solid black;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    /* Address Form */
+    .address-form {
+      width: 100%;
+      margin-top: 1rem;
+    }
+    
+    .address-field {
+      display: flex;
+      border-bottom: 1px solid black;
+      height: 2.5rem;
+      align-items: flex-end;
+      padding-bottom: 0.25rem;
+    }
+    
+    .address-field label {
+      font-weight: 900;
+      font-size: 12px;
+      text-transform: uppercase;
+      min-width: 100px;
+      margin-bottom: 0.125rem;
+    }
+    
+    .address-field input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 0 0.5rem;
+      font-weight: 700;
+      margin-bottom: 0.125rem;
+    }
+    
+    /* Footer Instructions */
+    .form-footer {
+      max-width: 850px;
+      margin: 3rem auto 0;
+      background-color: white;
+      padding: 2rem;
+      border-top: 4px solid #cc0000;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    .form-footer h4 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+    }
+    
+    .form-footer p {
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Print Styles */
+    @media print {
+      .button-bar,
+      .form-footer,
+      .no-print {
+        display: none !important;
+      }
+      
+      body {
+        background-color: white;
+      }
+      
+      .form-wrapper {
+        box-shadow: none;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="order-form-container">
+    <!-- Button Bar -->
+    <div class="button-bar no-print">
+      <button class="btn btn-back" onclick="window.history.back()">
+        &larr; Back
+      </button>
+      <button class="btn btn-pdf" onclick="generatePDF()">
+        Generate PDF
+      </button>
+    </div>
+    
+    <!-- Main Form -->
+    <div id="orderForm" class="form-wrapper font-archivo">
+      <!-- Yellow Header -->
+      <div class="yellow-header">
+        <div class="logo-container">
+          <img 
+            src="https://i.postimg.cc/GmXwrt8s/New-Federation-Logo-Bilingual-Official.png" 
+            alt="New Federation House Logo"
+            crossorigin="anonymous"
+          >
+        </div>
+        <div class="order-form-title-box">
+          <h1 class="order-form-title">ORDER FORM</h1>
+        </div>
+      </div>
+      
+      <!-- Grid Layout -->
+      <div class="form-grid">
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Blue Price Box -->
+          <div class="price-box">
+            <h2>THE PRIME MINISTERS OF CANADA</h2>
+            <h3>7<sup>TH</sup> EDITION</h3>
+            <div class="price-display">
+              <span class="price-dollar">$</span>
+              <span class="price-main">29</span>
+              <div class="price-cents-container">
+                <span class="price-cents">95</span>
+                <span class="price-label">PRICE<br>PER BOOK</span>
+              </div>
+            </div>
+          </div>
+          
+          <p class="isbn-text">ISBN 978-1-987832-42-6</p>
+          
+          <!-- Order Fields -->
+          <div class="order-fields">
+            <div class="order-field-row">
+              <div class="order-field-label red">
+                NUMBER OF<br>BOOKS ORDERED
+              </div>
+              <input 
+                type="number" 
+                id="qtyInput" 
+                class="order-field-input" 
+                min="1" 
+                placeholder="0"
+                oninput="calculateTotal()"
+              >
+            </div>
+            
+            <div class="order-field-row">
+              <div class="order-field-label blue">
+                SHIPPING
+              </div>
+              <div class="order-field-value">$9.00</div>
+            </div>
+            
+            <div class="order-field-row">
+              <div class="order-field-label red total">
+                TOTAL
+                <span class="tax-note">TAXES INCLUDED</span>
+              </div>
+              <div class="order-field-value" id="totalValue">$0.00</div>
+            </div>
+          </div>
+          
+          <!-- How to Order -->
+          <div class="how-to-order">
+            <h3>HOW TO ORDER AND PAY</h3>
+            <div class="how-to-order-content">
+              <div>
+                <p class="label">Email your order to:</p>
+                <p class="value">newfederationhouse@gmail.com</p>
+              </div>
+              <div>
+                <p class="label">Bank E-Transfer payment to:</p>
+                <p class="value">newfederationhouse@gmail.com</p>
+              </div>
+              <div>
+                <p class="label">Please Mail both your cheque and the<br>completed order form to the following address</p>
+                <p class="note">Mailing Address Only - ( Not open to the Public )</p>
+                <p class="value" style="padding-top: 0.25rem;">NEW FEDERATION HOUSE</p>
+                <p class="address">M161 - 4338 Innes Road,</p>
+                <p class="address">Ottawa, ON K4A 3W3</p>
+                <p class="contact">Contact us - Telephone: 613 415 6352</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Column -->
+        <div class="right-column">
+          <div class="book-cover">
+            <img 
+              src="https://i.postimg.cc/y6MGZXNR/1-Eng-PM-BK-1.png" 
+              alt="The Prime Ministers of Canada Book Cover"
+              crossorigin="anonymous"
+            >
+          </div>
+          
+          <!-- Address Form -->
+          <div class="address-form">
+            <div class="address-field">
+              <label>NAME :</label>
+              <input type="text" id="name" name="name">
+            </div>
+            <div class="address-field">
+              <label>ORG :</label>
+              <input type="text" id="org" name="org">
+            </div>
+            <div class="address-field">
+              <label>ADDRESS :</label>
+              <input type="text" id="address" name="address">
+            </div>
+            <div class="address-field">
+              <label></label>
+              <input type="text" id="address2" name="address2">
+            </div>
+            <div class="address-field">
+              <label>CITY :</label>
+              <input type="text" id="city" name="city">
+            </div>
+            <div class="address-field">
+              <label>PROVINCE :</label>
+              <input type="text" id="province" name="province">
+            </div>
+            <div class="address-field">
+              <label>POSTAL CODE :</label>
+              <input type="text" id="postalCode" name="postalCode">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer Instructions -->
+    <div class="form-footer no-print">
+      <h4>Completed your form?</h4>
+      <p>Click 'Generate PDF' at the top to save your completed form, then email it to newfederationhouse@gmail.com</p>
+    </div>
+  </div>
+  
+  <script>
+    // Calculate Total
+    function calculateTotal() {
+      const qtyInput = document.getElementById('qtyInput');
+      const totalValue = document.getElementById('totalValue');
+      const qty = parseInt(qtyInput.value) || 0;
+      const pricePerBook = 29.95;
+      const shipping = 9.00;
+      
+      if (qty > 0) {
+        const total = (qty * pricePerBook + shipping).toFixed(2);
+        totalValue.textContent = '$' + total;
+      } else {
+        totalValue.textContent = '$0.00';
+      }
+    }
+    
+    // Generate PDF
+    async function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const formElement = document.getElementById('orderForm');
+      
+      // Show loading state
+      const pdfButton = document.querySelector('.btn-pdf');
+      const originalText = pdfButton.textContent;
+      pdfButton.textContent = 'Generating...';
+      pdfButton.disabled = true;
+      
+      try {
+        const canvas = await html2canvas(formElement, {
+          scale: 2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff',
+          allowTaint: true
+        });
+        
+        const imgData = canvas.toDataURL('image/jpeg', 1.0);
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        
+        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+        
+        // Open PDF in new tab
+        const pdfUrl = pdf.output('bloburl');
+        window.open(pdfUrl, '_blank');
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+        alert('There was an error generating the PDF. Please try again.');
+      } finally {
+        pdfButton.textContent = originalText;
+        pdfButton.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
